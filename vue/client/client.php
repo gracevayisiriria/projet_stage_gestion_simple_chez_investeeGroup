@@ -281,13 +281,13 @@ require_once("../../controleur/client/ajouter.php");
                                        while($afficher = $client->fetch()) {
                                         ?>
                                         <tr>
-                                            <td> <?= $afficher["idclient"] ?> </td>
+                                            <td> <?= $afficher["idClient"] ?> </td>
                                             <td> <?= $afficher["nom"] ?> </td>
                                             <td> <?= $afficher["postnom"] ?> </td>
                                             <td> <?= $afficher["numero_telephone"] ?> </td>
                                             <td> <?= $afficher["adresse"] ?> </td>
                                             <td>
-                                                <a class="btn btn-outline-danger" href="../../controleur/client/supprimer.php?id=<?= $afficher["idclient"] ?>">Supprimer</a>
+                                                <a class="btn btn-outline-danger" href="../../controleur/client/supprimer.php?id=<?= $afficher["idClient"] ?>">Supprimer</a>
                                                 <a class="btn btn-outline-success" href="">Modifier</a>
                                             </td>
                                         </tr>
