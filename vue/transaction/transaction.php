@@ -219,30 +219,31 @@ require_once("../../modele/transaction/transaction.php");
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="dashboard.html">
+                            <a class="nav-link" href="../../vue/dashboard/dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i> Tableau de bord
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="clients.html">
+                            <a class="nav-link" href="../../vue/client/client.php">
                                 <i class="fas fa-users"></i> Gestion des clients
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="produits.html">
+                            <a class="nav-link" href="../../vue/produit/produit.php">
                                 <i class="fas fa-boxes"></i> Gestion des produits
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="transactions.html">
+                            <a class="nav-link active" href="../../vue/transaction/transaction.php">
                                 <i class="fas fa-exchange-alt"></i> Gestion des transactions
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="rapports.html">
-                                <i class="fas fa-chart-bar"></i> Rapports
+                         <li class="nav-item">
+                            <a class="nav-link" href="../../vue/utilisateur/utilisateur.php">
+                                <i class="fas fa-users"></i> Gestion des utilisateurs
                             </a>
                         </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -338,7 +339,7 @@ require_once("../../modele/transaction/transaction.php");
                                            <td> <?= $show["total"] ?> </td>
                                            <td> <?= $show["dateOperation"] ?> </td>
                                             <td>
-                                                <a href="../../controleur/transaction/annuler.php" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editTransactionModal">
+                                                <a href="../../controleur/transaction/annuler.php?id=<?= $show["id"] ?>" class="btn btn-sm btn-outline-primary me-1" >
                                                     <i class="fas fa-edit"></i> Annuler
                                                 </a>
                                             </td>

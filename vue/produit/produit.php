@@ -234,7 +234,7 @@ require_once("../../controleur/produit/ajouter.php");
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../../vue/utilisateur/utilisateur.php">
-                                <i class="fas fa-users"></i> Gestion des clients
+                                <i class="fas fa-users"></i> Gestion des utilisateur
                             </a>
                         </li>
                     </ul>
