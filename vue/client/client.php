@@ -2,6 +2,7 @@
 require_once("../../modele/bdd/connectBDD.php");
 require_once("../../modele/client/client.php");
 require_once("../../controleur/client/ajouter.php");
+require_once("../../controleur/login/session.php");
 ?>
 
 <!DOCTYPE html>
@@ -174,21 +175,15 @@ require_once("../../controleur/client/ajouter.php");
             <a class="navbar-brand" href="#">
                 <i class="fas fa-chart-line me-2"></i>Investee Group
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-circle me-1"></i> Admin
+                    <li class="nav-item ">
+                        <a class="nav-link " href="#" id="navbarDropdown" role="button" >
+                            <i class="fas fa-user-circle me-1"></i>
+                             <?php
+                            infoUser();
+                             ?>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profil</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Paramètres</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
-                        </ul>
                     </li>
                 </ul>
             </div>
@@ -226,9 +221,15 @@ require_once("../../controleur/client/ajouter.php");
                                 <i class="fas fa-exchange-alt"></i> Gestion des utilisateur
                             </a>
                         </li>
+                         <li class="nav-item mt-4">
+                            <a class="nav-link text-danger" href="../../controleur/login/deconnexion.php">
+                                <i class="fas fa-sign-out-alt"></i> Déconnexion
+                            </a>
+                        </li>
                         
                     </ul>
                 </div>
+                
             </div>
 
             <!-- Main Content -->

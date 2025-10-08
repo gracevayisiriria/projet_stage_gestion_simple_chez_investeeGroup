@@ -18,7 +18,7 @@ function NombreTransactionSelonId($id)
    return $afficher["Nbre"];
 }
 
-function TypeQuantiteSelonId($id)
+function TypeQuantiteIdProduitSelonId($id)
 {
     global $con;
     $reqType = $con->prepare("SELECT typeTransaction,quantite,idproduit FROM transaction WHERE idTransaction = ? ");
@@ -28,26 +28,64 @@ function TypeQuantiteSelonId($id)
 
 }
 
-// function ProduitSelonId($id)
-// {
-//     global $con;
-//     $reqType = $con->prepare("SELECT idproduit FROM transaction WHERE idTransaction = ? ");
-//     $reqType->execute(array());
-//     $result = $reqType->fetch();
-//     return $result;
-
-// }
-
-function ModifierQuantiteTotalDepot($quantite,$id)
+function ModifierQuantiteTotalDepot($quantite,$idProduit)
 {
     global $con;
     $reqModifier = $con->prepare("UPDATE produit SET  quantite = quantite - $quantite WHERE idproduit = ? ");
-    $reqModifier->execute(array($quantite,$id));
+    $reqModifier->execute(array($idProduit));
+    return $reqModifier;
 }
 
-function ModifierQuantiteTotalVente($quantite,$id)
+function ModifierQuantiteTotalVente($quantite,$idProduit)
 {
     global $con;
     $reqModifier = $con->prepare("UPDATE produit SET  quantite = quantite + $quantite WHERE idproduit = ? ");
-    $reqModifier->execute(array($quantite,$id));
+    $reqModifier->execute(array($idProduit));
+    return $reqModifier;
 }
+function ModifierQuantiteTotalVente1($quantite,$prixAchat,$prixVente,$idProduit)
+{
+    global $con;
+    $reqModifier = $con->prepare("UPDATE produit SET  quantite = quantite + $quantite,prixachat = ?,prixvente = ? WHERE idproduit = ? ");
+    $reqModifier->execute(array($prixAchat,$prixVente,$idProduit));
+    return $reqModifier;
+}
+function SupprimerTransactionSelonID($id)
+{
+    global $con;
+    $reqSuppimer = $con->prepare("DELETE FROM transaction WHERE idTransaction = ? ");
+    $reqSuppimer->execute(array($id));
+    return $reqSuppimer;
+}
+
+function InsertTransaction($idClient,$idProduit,$type,$quantite,$prixAchat,$prixVente)
+{
+    global $con;
+    $reqInsert = $con->prepare("INSERT INTO transaction(idClient,idproduit,typeTransaction,quantite,prixachat,prixVente,dateOperation)VALUES(?,?,?,?,?,?,NOW())");
+    $reqInsert ->execute(array($idClient,$idProduit,$type,$quantite,$prixAchat,$prixVente));
+    return $reqInsert;
+}
+
+function AllProduit()
+{
+    global $con;
+    $reqAll = $con->prepare("SELECT * FROM produit");
+    $reqAll->execute(array());
+    return $reqAll;
+}
+
+function ToutClient()
+{
+    global $con;
+    $reqAll = $con->prepare("SELECT * FROM client");
+    $reqAll->execute(array());
+    return $reqAll;
+}
+function QuantiteExistantProduit($idProduit)
+{
+   global $con;
+    $reqQuantite = $con->prepare("SELECT quantite FROM produit WHERE idproduit = ?");
+    $reqQuantite->execute(array($idProduit));
+    $result =  $reqQuantite->fetch();
+    return $result["quantite"];
+} 

@@ -16,7 +16,41 @@ if(isset($_GET["id"]))
         $quantite = $resultat["quantite"];
         $idProduit = $resultat["idproduit"];
 
-        if()
+        if($type == "depot")
+        {
+        $modifierProduit =  ModifierQuantiteTotalDepot($quantite,$idProduit);
+        if($modifierProduit)
+        {
+            $suppression =  SupprimerTransactionSelonID($id);
+            if($suppression)
+            {
+              header("location:../../vue/transaction/transaction.php");
+                
+            }
+        }
+        else
+        {
+            echo "Il y a une erreur !";
+        }
+
+        }
+        elseif($type=="vente")
+        {
+            $modifierProduit = ModifierQuantiteTotalVente($quantite,$idProduit);
+            if($modifierProduit)
+            {
+                 $suppression =  SupprimerTransactionSelonID($id);
+            if($suppression)
+            {
+              header("location:../../vue/transaction/transaction.php");
+                
+            }
+            }
+            else
+            {
+                echo "Il y a une erreur !";
+            }
+        }
     }
     
 }

@@ -1,3 +1,9 @@
+<?php
+require_once("modele/bdd/connectBDD.php");
+require_once("modele/utilisateur/utilisateur.php");
+require_once("controleur/login/login.php");
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -35,16 +41,16 @@
                         <a class="nav-link" href="#" onclick="showSection('home-section')">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="vue/dashboard/dashboard.html" onclick="showSection('dashboard-section')">Tableau de Bord</a>
+                        <a class="nav-link" href="vue/dashboard/dashboard.php" onclick="showSection('dashboard-section')">Tableau de Bord</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="vue/client/client.html" onclick="showSection('clients-section')">Clients</a>
+                        <a class="nav-link" href="vue/client/client.php" onclick="showSection('clients-section')">Clients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="vue/produit/produit.html" onclick="showSection('products-section')">Produits</a>
+                        <a class="nav-link" href="vue/produit/produit.php" onclick="showSection('products-section')">Produits</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="vue/transaction/transaction.html" onclick="showSection('transactions-section')">Transactions</a>
+                        <a class="nav-link" href="vue/transaction/transaction.php" onclick="showSection('transactions-section')">Transactions</a>
                     </li>
                     <li class="nav-item">
                         <button class="btn btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -67,20 +73,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="login-form">
+                    <form id="login-form" method="post">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Adresse email</label>
-                            <input type="email" class="form-control" id="email" placeholder="votre@email.com" required>
+                            <label for="email" class="form-label">Nom utilisateur</label>
+                            <input name="nomUtilisateur" type="text" class="form-control" id="email" placeholder="votre@email.com" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Mot de passe</label>
-                            <input type="password" class="form-control" id="password" placeholder="Votre mot de passe" required>
+                            <input name="password" type="password" class="form-control" id="password" placeholder="Votre mot de passe" required>
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="remember">
-                            <label class="form-check-label" for="remember">Se souvenir de moi</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100 py-2">Se connecter</button>
+                        <button type="submit" name="valider"  class="btn btn-primary w-100 py-2">Se connecter</button>
                     </form>
                     <div class="text-center mt-3">
                         <a href="#" class="text-decoration-none">Mot de passe oublié?</a>
@@ -171,11 +173,6 @@
                     </div>
                 </div>
 
-                <!-- Les autres sections (dashboard, clients, produits, transactions) seront chargées dynamiquement -->
-                <div id="dashboard-section" class="section d-none"></div>
-                <div id="clients-section" class="section d-none"></div>
-                <div id="products-section" class="section d-none"></div>
-                <div id="transactions-section" class="section d-none"></div>
             </div>
         </div>
     </div>
@@ -184,13 +181,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Custom JS -->
-    <script src="js/auth.js"></script>
-    <script src="js/navigation.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/modules/dashboard.js"></script>
-    <script src="js/modules/clients.js"></script>
-    <script src="js/modules/products.js"></script>
-    <script src="js/modules/transactions.js"></script>
 </body>
 </html>

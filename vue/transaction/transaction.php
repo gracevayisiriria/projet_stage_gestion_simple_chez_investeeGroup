@@ -2,6 +2,9 @@
 require_once("../../modele/bdd/connectBDD.php");
 require_once("../../modele/dashboard/dashboard.php");
 require_once("../../modele/transaction/transaction.php");
+require_once("../../controleur/transaction/ajouter.php");
+require_once("../../controleur/login/session.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">	
@@ -191,21 +194,15 @@ require_once("../../modele/transaction/transaction.php");
             <a class="navbar-brand" href="#">
                 <i class="fas fa-chart-line me-2"></i>Investee Group
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-circle me-1"></i> Admin
+                    <li class="nav-item ">
+                        <a class="nav-link " href="#" id="navbarDropdown" role="button" >
+                            <i class="fas fa-user-circle me-1"></i>
+                             <?php
+                            infoUser();
+                             ?>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profil</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Paramètres</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
-                        </ul>
                     </li>
                 </ul>
             </div>
@@ -241,6 +238,11 @@ require_once("../../modele/transaction/transaction.php");
                          <li class="nav-item">
                             <a class="nav-link" href="../../vue/utilisateur/utilisateur.php">
                                 <i class="fas fa-users"></i> Gestion des utilisateurs
+                            </a>
+                        </li>
+                         <li class="nav-item mt-4">
+                            <a class="nav-link text-danger" href="../../controleur/login/deconnexion.php">
+                                <i class="fas fa-sign-out-alt"></i> Déconnexion
                             </a>
                         </li>
                         
@@ -336,8 +338,8 @@ require_once("../../modele/transaction/transaction.php");
                                            <td> <?= $show["quantite"] ?> </td>
                                            <td> <?= $show["prixAchat"] ?> </td>
                                            <td> <?= $show["prixVente"] ?> </td>
-                                           <td> <?= $show["total"] ?> </td>
-                                           <td> <?= $show["dateOperation"] ?> </td>
+                                           <td> <?= $show["quantite"] * $show["prixAchat"]?> </td>
+                                           <td> <? $show["dateOperation"]?> </td>
                                             <td>
                                                 <a href="../../controleur/transaction/annuler.php?id=<?= $show["id"] ?>" class="btn btn-sm btn-outline-primary me-1" >
                                                     <i class="fas fa-edit"></i> Annuler
@@ -364,110 +366,80 @@ require_once("../../modele/transaction/transaction.php");
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post" >
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="transactionType" class="form-label">Type de transaction</label>
-                                    <select class="form-select" id="transactionType" required>
-                                        <option value="">Sélectionner un type</option>
+                                    <select name="type" class="form-select" id="transactionType" required>
+                                        <option desabled selected value="">Sélectionner un type</option>
                                         <option value="vente">Vente</option>
                                         <option value="depot">Dépôt</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="transactionDate" class="form-label">Date</label>
-                                    <input type="date" class="form-control" id="transactionDate" required>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="mb-3">
                             <label for="transactionClient" class="form-label">Client / Fournisseur</label>
-                            <select class="form-select" id="transactionClient" required>
-                                <option value="">Sélectionner un client/fournisseur</option>
-                                <optgroup label="Clients">
-                                    <option value="client1">Martin Dubois</option>
-                                    <option value="client2">Sophie Lambert</option>
-                                    <option value="client3">Pierre Moreau</option>
-                                    <option value="client4">Élise Petit</option>
-                                </optgroup>
-                                <optgroup label="Fournisseurs">
-                                    <option value="supplier1">TechPro Suppliers</option>
-                                    <option value="supplier2">ElectroAccess</option>
-                                    <option value="supplier3">MobileTech</option>
-                                </optgroup>
+                            <select name="client" class="form-select" id="transactionClient" required>
+                                <option value="client">Sélectionner un client/fournisseur</option>
+                                <?php
+                                $ResultClient = ToutClient();
+                                while($showResult = $ResultClient->fetch()) {
+                                ?>
+                                   <option value="<?= $showResult["idClient"]?>"> <?= $showResult["nom"]?> </option> 
+                                   <?php } ?>
                             </select>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="transactionProduct" class="form-label">Produit / Description</label>
-                            <select class="form-select" id="transactionProduct" required>
-                                <option value="">Sélectionner un produit</option>
-                                <optgroup label="Informatique">
-                                    <option value="product1">Ordinateur Portable Pro - 1,250€</option>
-                                    <option value="product2">Écran 24" 4K - 320€</option>
-                                </optgroup>
-                                <optgroup label="Mobile">
-                                    <option value="product3">Smartphone Elite - 850€</option>
-                                    <option value="product4">Tablette Graphique - 520€</option>
-                                </optgroup>
-                                <optgroup label="Accessoires">
-                                    <option value="product5">Casque Audio Pro - 180€</option>
-                                </optgroup>
+                            <label for="transactionProduct" class="form-label">Produit</label>
+                            <select name="produit" class="form-select" id="transactionProduct" required>
+                                <option selected desabled value="">Sélectionner un produit</option>
+                                  <?php
+                                $resultClient = AllProduit();
+                               while( $Afficher=$resultClient->fetch()){
+                                ?>
+                                <option value="<?= $Afficher["idproduit"]?>"><?= $Afficher["nomproduit"]?></option>
+                                <?php }  ?>
                             </select>
                         </div>
-                        
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="transactionQuantity" class="form-label">Quantité</label>
-                                    <input type="number" class="form-control" id="transactionQuantity" value="1" min="1" required>
+                                    <input type="number" name="quantite" class="form-control" id="transactionQuantity" value="1" min="1" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="transactionUnitPrice" class="form-label">Prix unitaire (€)</label>
-                                    <input type="number" class="form-control" id="transactionUnitPrice" step="0.01" required>
+                                    <label for="transactionUnitPrice" class="form-label">Prix unitaire d'achat ($)</label>
+                                    <input name="prixAchat" type="number" class="form-control" id="transactionUnitPrice" step="0.01" required>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="transactionTotal" class="form-label">Montant total (€)</label>
-                                    <input type="text" class="form-control" id="transactionTotal" readonly>
+                                    <label for="transactionUnitPrice" class="form-label">Prix de vente ($)</label>
+                                    <input name="prixVente" type="number" class="form-control" id="transactionUnitPrice" step="0.01" required>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="mb-3">
-                            <label for="transactionStatus" class="form-label">Statut</label>
-                            <select class="form-select" id="transactionStatus" required>
-                                <option value="completed" selected>Complété</option>
-                                <option value="pending">En attente</option>
-                                <option value="cancelled">Annulé</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="transactionNotes" class="form-label">Notes (optionnel)</label>
-                            <textarea class="form-control" id="transactionNotes" rows="3" placeholder="Notes supplémentaires sur la transaction..."></textarea>
-                        </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary">Enregistrer la transaction</button>
+                    <button type="submit" name="valider" class="btn btn-primary">Enregistrer la transaction</button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
      <script src="../../style/bootstrap/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+     
     <script>
         // Simple script to handle sidebar navigation
         document.addEventListener('DOMContentLoaded', function() {

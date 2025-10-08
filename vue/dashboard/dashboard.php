@@ -1,6 +1,7 @@
 <?php
 require_once("../../modele/bdd/connectBDD.php");
 require_once("../../modele/dashboard/dashboard.php");
+require_once("../../controleur/login/session.php");
 ?>
 
 
@@ -239,7 +240,7 @@ require_once("../../modele/dashboard/dashboard.php");
                             </a>
                         </li>
                         <li class="nav-item mt-4">
-                            <a class="nav-link text-danger" href="#">
+                            <a class="nav-link text-danger" href="../../controleur/login/deconnexion.php">
                                 <i class="fas fa-sign-out-alt"></i> Déconnexion
                             </a>
                         </li>

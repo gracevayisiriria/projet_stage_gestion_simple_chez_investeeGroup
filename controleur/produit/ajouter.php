@@ -1,5 +1,5 @@
 <?php
-require_once("../../modele/produit/produit.php");
+require_once("../../modele/transaction/transaction.php");
 
 if(isset($_POST["valider"]))
 {

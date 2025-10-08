@@ -44,7 +44,7 @@ function VerifInformation ($nomProduit)
 function InsertProduit($nomProduit)
 {
     global $con;
-    $reqInsert = $con->prepare("INSERT INTO produit(nomproduit)VALUES(?)");
+    $reqInsert = $con->prepare("INSERT INTO produit(nomproduit,quantite,prixachat,prixvente)VALUES(?,0,0,0)");
     $reqInsert ->execute(array($nomProduit));
     return $reqInsert;
 }
