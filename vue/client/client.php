@@ -289,7 +289,7 @@ require_once("../../controleur/login/session.php");
                                             <td> <?= $afficher["adresse"] ?> </td>
                                             <td>
                                                 <a class="btn btn-outline-danger" href="../../controleur/client/supprimer.php?id=<?= $afficher["idClient"] ?>">Supprimer</a>
-                                                <a class="btn btn-outline-success" href="">Modifier</a>
+                                                <a class="btn btn-outline-success" href="modifier.php?id=<?= $afficher["idClient"] ?>">Modifier</a>
                                             </td>
                                         </tr>
                                         <?php  } ?>
@@ -346,77 +346,7 @@ require_once("../../controleur/login/session.php");
         </div>
     </div>
 
-    <!-- Edit Client Modal -->
-    <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editClientModalLabel">Modifier les informations du client</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="editClientFirstName" class="form-label">Prénom</label>
-                                    <input type="text" class="form-control" id="editClientFirstName" value="Martin" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="editClientLastName" class="form-label">Nom</label>
-                                    <input type="text" class="form-control" id="editClientLastName" value="Dubois" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editClientEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="editClientEmail" value="martin.dubois@email.com" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editClientPhone" class="form-label">Téléphone</label>
-                            <input type="tel" class="form-control" id="editClientPhone" value="01 23 45 67 89">
-                        </div>
-                        <div class="mb-3">
-                            <label for="editClientAddress" class="form-label">Adresse</label>
-                            <textarea class="form-control" id="editClientAddress" rows="3">123 Avenue des Champs-Élysées</textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="editClientCity" class="form-label">Ville</label>
-                                    <input type="text" class="form-control" id="editClientCity" value="Paris">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="editClientPostalCode" class="form-label">Code postal</label>
-                                    <input type="text" class="form-control" id="editClientPostalCode" value="75008">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editClientCompany" class="form-label">Entreprise (optionnel)</label>
-                            <input type="text" class="form-control" id="editClientCompany" value="Dubois Technologies">
-                        </div>
-                        <div class="mb-3">
-                            <label for="editClientStatus" class="form-label">Statut</label>
-                            <select class="form-select" id="editClientStatus">
-                                <option value="active" selected>Actif</option>
-                                <option value="inactive">Inactif</option>
-                                <option value="pending">En attente</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary">Enregistrer les modifications</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

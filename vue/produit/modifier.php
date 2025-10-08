@@ -1,8 +1,6 @@
 <?php
 require_once("../../modele/bdd/connectBDD.php");
-require_once("../../modele/client/client.php");
-require_once("../../controleur/client/modifier.php");
-
+require_once("../../modele/produit/produit.php");
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +8,7 @@ require_once("../../controleur/client/modifier.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier Client - Investee Group</title>
+    <title>Modifier Produit - Investee Group</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -102,21 +100,20 @@ require_once("../../controleur/client/modifier.php");
             color: var(--primary-color);
         }
         
-        .client-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: var(--secondary-color);
+        .product-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: bold;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             margin: 0 auto 20px;
         }
         
-        .client-info-sidebar {
+        .product-info-sidebar {
             background-color: #f8f9fa;
             border-radius: 10px;
             padding: 20px;
@@ -159,6 +156,53 @@ require_once("../../controleur/client/modifier.php");
             border-bottom: 1px solid #eaeaea;
         }
         
+        .price-tag {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .stock-indicator {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .stock-high {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .stock-medium {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .stock-low {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .image-upload-area {
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .image-upload-area:hover {
+            border-color: var(--secondary-color);
+            background-color: #f8f9fa;
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 min-height: auto;
@@ -176,51 +220,69 @@ require_once("../../controleur/client/modifier.php");
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-          
+        <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i> Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Mon profil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Paramètres</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
     <div class="container-fluid">
         <div class="row">
+            <!-- Sidebar -->
             <div class="col-lg-2 col-md-3 d-md-block sidebar collapse">
                 <div class="position-sticky pt-3">
-                       <ul class="nav flex-column">
+                    <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="../../vue/dashboard/dashboard.php">
+                            <a class="nav-link" href="#">
                                 <i class="fas fa-tachometer-alt"></i> Tableau de bord
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../vue/client/client.php">
-                                <i class="fas fa-users"></i> Gestion des clients
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-users"></i> Utilisateurs
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../vue/produit/produit.php">
-                                <i class="fas fa-boxes"></i> Gestion des produits
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-user-friends"></i> Clients
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="../../vue/transaction/transaction.php">
-                                <i class="fas fa-exchange-alt"></i> Gestion des transactions
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-box"></i> Produits
                             </a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link active" href="../../vue/utilisateur/utilisateur.php">
-                                <i class="fas fa-users"></i> Gestion des utilisateurs
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-shopping-cart"></i> Commandes
                             </a>
                         </li>
-                         <li class="nav-item mt-4">
-                            <a class="nav-link text-danger" href="../../controleur/login/deconnexion.php">
-                                <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-chart-bar"></i> Rapports
                             </a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cog"></i> Paramètres
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            
             <!-- Main Content -->
             <main class="col-lg-10 col-md-9 ms-sm-auto px-md-4 main-content">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
@@ -230,40 +292,19 @@ require_once("../../controleur/client/modifier.php");
                         </a>
                     </div>
                 </div>
-
                 <div class="row">
-                    
-                    <!-- Formulaire de modification -->
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="mb-0">Modifier les informations du client</h5>
+                                <h5 class="mb-0">Modifier les informations du produit</h5>
                             </div>
                             <div class="card-body">
-                                <form method="post" >
-                                    <div class="text-center mb-4">
-                                        <h4><?= $ClientInformation["nom"]." ".$ClientInformation["postnom"] ?></h4>
-                                        <p class="text-muted">ID: <?= $ClientInformation["idClient"] ?></p>
-                                    </div>
-                                    <h6 class="section-title">Informations personnelles</h6>
+                                <form method="post">
+                                    <h6 class="section-title">Informations de base</h6>
                                     <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="clientFirstName" class="form-label">Nom</label>
-                                            <input name="nom" type="text" class="form-control" id="clientFirstName" value="<?=$ClientInformation["nom"]?>" required>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="clientLastName" class="form-label">Post-nom</label>
-                                            <input type="text" name="postnom" class="form-control" id="clientLastName" value="<?=$ClientInformation["postnom"]?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="clientEmail" class="form-label">N° Télephone</label> 
-                                            <input name="telephone" type="text" class="form-control" id="clientEmail" value="<?=$ClientInformation["numero_telephone"]?>" required>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="clientPhone" class="form-label">Adresse</label>
-                                            <input type="text" name="adresse" class="form-control" id="clientPhone" value="<?=$ClientInformation["adresse"]?>" required>
+                                        <div class="col-md-8 mb-3">
+                                            <label for="productName" class="form-label">Nom du produit</label>
+                                            <input type="text" name="produit" class="form-control" id="productName" value="Fonds d'Investissement Éco-Energie" required>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end mt-4">
@@ -275,6 +316,7 @@ require_once("../../controleur/client/modifier.php");
                         </div>
                     </div>
 
+                    
                 </div>
             </main>
         </div>
@@ -283,16 +325,5 @@ require_once("../../controleur/client/modifier.php");
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
-    <script>
-        // Script pour gérer l'affichage responsive du sidebar
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.querySelector('.sidebar');
-            const navbarToggler = document.querySelector('.navbar-toggler');
-            
-            navbarToggler.addEventListener('click', function() {
-                sidebar.classList.toggle('d-block');
-            });
-        });
-    </script>
 </body>
 </html>

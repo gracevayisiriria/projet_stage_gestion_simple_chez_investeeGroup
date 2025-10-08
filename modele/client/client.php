@@ -49,4 +49,21 @@ function InsertClient($nom,$postnom,$telephone,$adresse)
     $reqInsert = $con->prepare("INSERT INTO client(nom,postnom,numero_telephone,adresse)VALUES(?,?,?,?)");
     $reqInsert ->execute(array($nom,$postnom,$telephone,$adresse));
 }
+
+function ToutClientSelonId($id)
+{   
+    global $con;
+   $ReqCompter = $con->prepare("SELECT * FROM client WHERE idclient = ?");
+   $ReqCompter->execute(array($id));
+   $afficher = $ReqCompter->fetch();
+   return $afficher;
+} 
+
+function ModifierClient($nom,$postnom,$telephone,$adresse,$id)
+{
+     global $con;
+    $reqModifier = $con->prepare("UPDATE client SET nom = ?,postnom = ?,numero_telephone = ?,adresse = ? WHERE idclient = ? ");
+    $reqModifier->execute(array($nom,$postnom,$telephone,$adresse,$id));
+    return $reqModifier;
+}
 ?>
