@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 06 Octobre 2025 à 08:09
+-- Généré le :  Mer 08 Octobre 2025 à 08:18
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -39,7 +39,8 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`idClient`, `nom`, `postnom`, `numero_telephone`, `adresse`) VALUES
-(9, 'Grace', 'vayisirirya', '0978259574', 'Butembo/av.walikale');
+(9, 'Grace', 'vayisirirya', '0978259574', 'Butembo/av.walikale'),
+(10, 'jospin', 'Muhindo', '+24999998766', 'Butembo');
 
 -- --------------------------------------------------------
 
@@ -61,8 +62,7 @@ CREATE TABLE `produit` (
 --
 
 INSERT INTO `produit` (`idproduit`, `nomproduit`, `quantite`, `prixachat`, `prixvente`, `solde`) VALUES
-(4, 'savon', NULL, NULL, NULL, NULL),
-(5, 'Iphone 17', NULL, NULL, NULL, NULL);
+(10, 'Ordinateur', 352, 1200, 1300, NULL);
 
 -- --------------------------------------------------------
 
@@ -87,9 +87,10 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`idTransaction`, `idClient`, `idproduit`, `typeTransaction`, `quantite`, `prixachat`, `prixVente`, `total`, `dateOperation`) VALUES
-(1, 9, 4, 'depot', 10, 2000, 2300, 20000, '2025-10-05'),
-(2, 9, 4, 'depot', 10, 2000, 2300, 20000, '2025-10-05'),
-(3, 9, 4, 'vente', 10, NULL, 1400, 14000, '2025-10-05');
+(2, 9, 10, 'depot', 1000, 100, 200, NULL, '2025-10-07'),
+(4, 9, 10, 'depot', 40, 100, 120, NULL, '2025-10-07'),
+(6, 9, 10, 'depot', 100, 1400, 1500, NULL, '2025-10-07'),
+(8, 10, 10, 'depot', 100, 1200, 1300, NULL, '2025-10-07');
 
 -- --------------------------------------------------------
 
@@ -103,6 +104,14 @@ CREATE TABLE `utilisateurs` (
   `role` varchar(25) DEFAULT NULL,
   `mdp` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `utilisateurs`
+--
+
+INSERT INTO `utilisateurs` (`id`, `nomutilisateur`, `role`, `mdp`) VALUES
+(4, 'jospin', 'pdg', '$2y$10$.5LdH45F0nvsdWNet89.OeMg1LPov7EGaKFRlgB.ZPeNyG18Gtlwq'),
+(5, 'grace', 'administrateur', '$2y$10$BxiPVhzsYScsedYSFgAuLOxYrBiODJOvmuLTCKXIqY.4akEeYC3oO');
 
 --
 -- Index pour les tables exportées
@@ -142,22 +151,22 @@ ALTER TABLE `utilisateurs`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `idClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT pour la table `produit`
 --
 ALTER TABLE `produit`
-  MODIFY `idproduit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idproduit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT pour la table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `idTransaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idTransaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Contraintes pour les tables exportées
 --
