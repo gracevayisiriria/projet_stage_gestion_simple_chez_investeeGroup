@@ -65,4 +65,13 @@ function AllSelonNom($nomUtilisateur)
     return $ReqUsers;
 }
 
+function AllUtilisateurSelonID($id)
+{
+    global $con;
+    $ReqUsers = $con->prepare("SELECT * FROM utilisateurs WHERE id=? ");
+    $ReqUsers->execute(array($id));
+    return $ReqUsers;
+}
+
+
 ?>

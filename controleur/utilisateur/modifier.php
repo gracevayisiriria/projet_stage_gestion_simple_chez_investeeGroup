@@ -6,15 +6,15 @@ if(!isset($_GET["id"]))
 else
 {
     $id = htmlspecialchars($_GET["id"]);
-   $nombreClient =  NombreProduitSelonId($id);
-   if($nombreClient == 0)
+   $nombreUtilisateur = NombreUsersSelonId($id);
+   if($nombreUtilisateur == 0)
    {
-      header("Location:../produit/produit.php");
+      header("Location:../utilisateur/utilisateur");
    }
    else
    {
-    $ClientInformation = ToutProduitSelonId($id);
-    $ShowInformation = $ClientInformation->fetch();
+    $UtilisateurInformation = AllUtilisateurSelonID($id);
+    $ShowInformation = $UtilisateurInformation->fetch();
    }
 }
 

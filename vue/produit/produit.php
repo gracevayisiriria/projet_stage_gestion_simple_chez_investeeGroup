@@ -298,9 +298,9 @@ require_once("../../controleur/login/session.php");
                                             <td> <?= $afficher["prixvente"] ?> </td>
                                             <td> <?= $afficher["quantite"] * $afficher["prixachat"]?> </td>
                                             <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editProductModal">
+                                                <a href="modifier.php?id=<?= $afficher["idproduit"] ?>" class="btn btn-sm btn-outline-primary me-1" >
                                                     <i class="fas fa-edit"></i> Modifier
-                                                </button>
+                                                </>
                                                 <a href="../../controleur/produit/supprimer.php?id=<?= $afficher["idproduit"] ?>" class="btn btn-sm btn-outline-danger">
                                                     <i class="fas fa-trash"></i> Supprimer
                                                 </a>

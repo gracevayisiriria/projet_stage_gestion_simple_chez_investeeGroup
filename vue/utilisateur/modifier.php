@@ -1,9 +1,9 @@
 <?php
 require_once("../../modele/bdd/connectBDD.php");
-require_once("../../modele/produit/produit.php");
-require_once("../../controleur/produit/modifier.php");
-?>
+require_once("../../modele/utilisateur/utilisateur.php");
+require_once("../../controleur/utilisateur/modifier.php");
 
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -297,23 +297,31 @@ require_once("../../controleur/produit/modifier.php");
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="mb-0">Modifier les informations du produit</h5>
+                                <h5 class="mb-0">Modifier les informations de l'utilisateur</h5>
                             </div>
                             <div class="card-body">
                                 <form method="post">
                                     <h6 class="section-title">Informations de base</h6>
                                     <div class="row">
                                         <div class="col-md-8 mb-3">
-                                            <label for="productName" class="form-label">Nom du produit</label>
-                                            <input type="text" name="produit" class="form-control" id="productName" value="<?=$ShowInformation["nomproduit"]?>" required>
+                                            <label for="productName" class="form-label">Nom utilisateur</label>
+                                            <input type="text" name="produit" class="form-control" id="productName" value="<?= $ShowInformation["nomutilisateur"]?>" required>
                                         </div>
                                          <div class="col-md-8 mb-3">
-                                            <label for="productName" class="form-label">prix d'achat</label>
-                                            <input type="text" name="prixAchat" class="form-control" id="productName" value="<?=$ShowInformation["prixachat"]?>" required>
+                                            <select class="form-control" name="" id="">
+                                                <option selected  value="<?= $ShowInformation["role"]?>"><?= $ShowInformation["role"]?></option>
+                                                <?php if(isset($ShowInformation) && $ShowInformation["role"] != "administrateur") { ?>
+                                                <option value="administrateur">Administrateur</option>
+                                                <?php } elseif(isset($ShowInformation)&& $ShowInformation["role"] != "gestionnaire") { ?>
+                                                <option value="gestionnaire">Gestionnaire</option>
+                                                <?php } elseif(isset($ShowInformation)&& $ShowInformation["role"] != 'pdg') {  ?>
+                                                <option value="pdg">PDG</option>  
+                                                <?php } ?>  
+                                            </select>
                                         </div>
                                          <div class="col-md-8 mb-3">
-                                            <label for="productName" class="form-label">prix de vente</label>
-                                            <input type="text" name="prixVente" class="form-control" id="productName" value="<?=$ShowInformation["prixvente"]?>" required>
+                                            <label for="productName" class="form-label">mot de passe</label>
+                                            <input type="text" name="prixVente" class="form-control" id="productName" placeholder="modifier directement le mot de passe" value="" required>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end mt-4">

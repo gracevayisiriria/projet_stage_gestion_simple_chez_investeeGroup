@@ -48,4 +48,18 @@ function InsertProduit($nomProduit)
     $reqInsert ->execute(array($nomProduit));
     return $reqInsert;
 }
+function ToutProduitSelonId($id)
+{
+    global $con;
+    $reqAll = $con->prepare("SELECT * FROM produit WHERE idproduit = ?");
+    $reqAll->execute(array($id));
+    return $reqAll;
+}
+function ModifierProduit($nomProduit,$prixAchat,$prixVente,$id)
+{
+     global $con;
+    $reqModifier = $con->prepare("UPDATE produit SET nomproduit = ?,prixachat=?,prixvente=? WHERE idproduit = ? ");
+    $reqModifier->execute(array($nomProduit,$prixAchat,$prixVente,$id));
+    return $reqModifier;
+}
 ?>

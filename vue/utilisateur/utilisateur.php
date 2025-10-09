@@ -271,7 +271,7 @@ require_once("../../controleur/login/session.php");
                                         <td><?= $afficher["nomutilisateur"]?></td>
                                         <td><?= $afficher["role"]?></td>
                                         <td class="action-buttons">
-                                            <a href="" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                            <a href="modifier.php?id=<?= $afficher["id"]?>" class="btn btn-sm btn-outline-primary">
                                                 <i class="fas fa-edit"></i> modifier
                                             </a>
                                             <a href="../../controleur/utilisateur/supprimer.php?id=<?= $afficher["id"]?>" class="btn btn-sm btn-outline-danger">
