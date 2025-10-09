@@ -21,16 +21,17 @@ else
 
 if(isset($_POST["valider"]))
 {
-    $nomProduit = htmlspecialchars($_POST["produit"]);
-    $prixAchat = htmlspecialchars($_POST["prixAchat"]);
-    $prixVente = htmlspecialchars($_POST["prixVente"]);
+    $nomUtilisateur = htmlspecialchars($_POST["nom"]);
+    $role = htmlspecialchars($_POST["role"]);
+    $password = htmlspecialchars($_POST["password"]);
+    $passwordHash = password_hash($password,PASSWORD_DEFAULT);
     
-    if(!empty($nomProduit) || !empty($prixAchat) || !empty($prixVente))
+    if(!empty($nomUtilisateur) || !empty($role) || !empty($password))
     {
-       $modifier =  ModifierProduit($nomProduit,$prixAchat,$prixVente,$id);
+       $modifier =  ModifierUtilisateur($nomUtilisateur,$role,$passwordHash,$id);
        if($modifier)
        {
-        header("Location:../produit/produit.php");
+        header("Location:../utilisateur/utilisateur");
        }
        else
        {

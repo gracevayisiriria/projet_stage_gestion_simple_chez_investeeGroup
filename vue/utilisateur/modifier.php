@@ -305,10 +305,10 @@ require_once("../../controleur/utilisateur/modifier.php");
                                     <div class="row">
                                         <div class="col-md-8 mb-3">
                                             <label for="productName" class="form-label">Nom utilisateur</label>
-                                            <input type="text" name="produit" class="form-control" id="productName" value="<?= $ShowInformation["nomutilisateur"]?>" required>
+                                            <input type="text" name="nom" class="form-control" id="productName" value="<?= $ShowInformation["nomutilisateur"]?>" required>
                                         </div>
                                          <div class="col-md-8 mb-3">
-                                            <select class="form-control" name="" id="">
+                                            <select name="role" class="form-control" name="" id="">
                                                 <option selected  value="<?= $ShowInformation["role"]?>"><?= $ShowInformation["role"]?></option>
                                                 <?php if(isset($ShowInformation) && $ShowInformation["role"] != "administrateur") { ?>
                                                 <option value="administrateur">Administrateur</option>
@@ -321,7 +321,7 @@ require_once("../../controleur/utilisateur/modifier.php");
                                         </div>
                                          <div class="col-md-8 mb-3">
                                             <label for="productName" class="form-label">mot de passe</label>
-                                            <input type="text" name="prixVente" class="form-control" id="productName" placeholder="modifier directement le mot de passe" value="" required>
+                                            <input type="text" name="password" class="form-control" id="productName" placeholder="modifier directement le mot de passe" value="" required>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end mt-4">

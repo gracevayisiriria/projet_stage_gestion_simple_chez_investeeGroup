@@ -73,5 +73,12 @@ function AllUtilisateurSelonID($id)
     return $ReqUsers;
 }
 
+function ModifierUtilisateur($nomUtilisateur,$role,$password,$id)
+{
+    global $con;
+    $reqModifier = $con->prepare("UPDATE utilisateurs SET nomutilisateur = ?, role = ?,mdp = ? WHERE id =?");
+    $reqModifier->execute(array($nomUtilisateur,$role,$password,$id));
+}
+
 
 ?>
